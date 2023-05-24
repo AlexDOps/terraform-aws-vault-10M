@@ -13,7 +13,7 @@ To use existing network resources:
 - Set the `var.vpvault_aws_vpc_idc_id`.
 - Set `var.vault_private_subnet_ids` to a subnet with a NAT router.
 - Set `var.vault_public_subnet_ids` to a subnet with an internet gateway.
-- Optionally set `var.vault_vpc_cidr_block_start` to the first two CIDR octets available in the VPC.
+- Optionally set `var.vault_vpc_cidr_block_start` to the first two CIDR octets available in the VPC
 
 ## API and replication
 
