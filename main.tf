@@ -86,9 +86,12 @@ resource "aws_launch_template" "default" {
       vault_custom_script_s3_url     = var.vault_custom_script_s3_url
       vault_data_path                = var.vault_data_path
       vault_enable_ui                = var.vault_enable_ui
+      vault_http_read_timeout        = var.vault_http_read_timeout
+      vault_http_write_timeout       = var.vault_http_write_timeout
       vault_version                  = var.vault_version
       vault_package                  = local.vault_package
       vault_license                  = try(var.vault_license, null)
+      vault_type                     = var.vault_type
       warmup                         = var.vault_asg_warmup_seconds
   }))
   vpc_security_group_ids = compact([aws_security_group.private.id, try(aws_security_group.public[0].id, "")])

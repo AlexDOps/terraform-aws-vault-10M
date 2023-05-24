@@ -14,10 +14,14 @@ variable "vault_name" {
 variable "vault_version" {
   description = "The version of Vault to install."
   type        = string
-  default     = "1.13.1"
+  default     = "1.13.2"
   validation {
-    condition     = can(regex("^1\\.", var.vault_version))
-    error_message = "Please use a SemVer version, where the major version is \"1\". Use \"1.2.7\" or newer."
+    condition     = split(".", var.vault_version)[0] == "1"
+    error_message = "Please use major version 1 of Vault, for example \"1.13.2\"."
+  }
+  validation {
+     condition     = split(".", var.vault_version)[1] >= "11"
+     error_message = "Please use minor version 11 or newer, for example  \"1.13.2\"."
   }
 }
 
@@ -211,8 +215,8 @@ variable "vault_license" {
   type        = string
   default     = ""
   validation {
-    condition     = length(var.vault_license) == 1201 || length(var.vault_license) == 0
-    error_message = "The license should contain 1201 characters."
+    condition     = length(var.vault_license) > 1024 || length(var.vault_license) == 0
+    error_message = "The license should contain more than 1024 characters."
   }
 }
 
@@ -485,4 +489,16 @@ variable "vault_bastion_public_ip" {
   description = "Assign a public IP to the bastion host."
   type        = bool
   default     = true
+}
+
+variable "vault_http_read_timeout" {
+  description = "The read timeout for the HTTP API."
+  type        = string
+  default     = "30s"
+}
+
+variable "vault_http_write_timeout" {
+  description = "The write timeout for the HTTP API."
+  type        = string
+  default     = "30s"
 }
